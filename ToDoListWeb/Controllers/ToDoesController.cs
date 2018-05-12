@@ -24,6 +24,14 @@ namespace ToDoListWeb.Controllers
             return View(db.ToDos.ToList().Where(x => x.User == currentUser));
         }
 
+        public ActionResult BuildToDoTable()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault
+                (x => x.Id == currentUserId);
+            return PartialView("_ToDoTable", db.ToDos.ToList().Where(x => x.User == currentUser));
+        }
+
         // GET: ToDoes/Details/5
         public ActionResult Details(int? id)
         {
